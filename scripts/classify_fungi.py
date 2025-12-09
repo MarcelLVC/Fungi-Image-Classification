@@ -143,9 +143,22 @@ def run_server(model_path, host='0.0.0.0', port=5000):
             feat_glcm = extract_glcm_features(cv2.resize(img, (256, 256)))
             feat_lbp = extract_lbp_features(cv2.resize(img, (256, 256)))
             feat_hsv = extract_hsv_features(cv2.resize(img, (256, 256)))
+
+            if(prediction==0):
+                prediction = "Candida Albicans"
+            elif(prediction==1):
+                prediction = "Aspergillus Niger"
+            elif(prediction==2):
+                prediction = "Trichophyton Rubrum"
+            elif(prediction==3):
+                prediction = "Trichophyton Mentagrophytes"
+            elif(prediction==4):
+                prediction = "Epidermophyton Floccosum"
+            else:
+                prediction = "Unable to Classify Species"
             
             return jsonify({
-                "class": str(prediction),
+                "class": prediction,
                 "confidence": float(confidence),
                 "features": {
                     "glcm": feat_glcm.tolist(),
