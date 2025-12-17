@@ -209,3 +209,15 @@ __marimo__/
 # ignore datasetfolder
 .dataset/
 dataset/
+dataset.zip
+
+# unused model notebooks
+.model.ipynb
+.model2.ipynb
+
+# next bruh
+next*
+.next*
+
+# node
+node_modules*
