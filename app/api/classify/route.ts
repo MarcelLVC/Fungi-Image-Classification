@@ -3,10 +3,12 @@ import { NextResponse } from "next/server"
 export async function POST(request: Request) {
   try {
     const body = await request.json()
+    
+    const apiUrl = process.env.NODE_ENV === 'development' 
+      ? "http://127.0.0.1:5000/classify" 
+      : `${process.env.NEXT_PUBLIC_VERCEL_URL || ''}/api/classify-py`; 
 
-    // Forward the request to the local Python Flask server
-    // running on port 5000
-    const response = await fetch("http://127.0.0.1:5000/classify", {
+    const response = await fetch(new URL('/api/classify-py', request.url), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +30,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Error communicating with classification server:", error)
     return NextResponse.json(
-      { error: "Failed to connect to classification server. Make sure the Python script is running." }, 
+      { error: "Failed to connect to classification server." }, 
       { status: 500 }
     )
   }
