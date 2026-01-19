@@ -4,4 +4,5 @@ numpy
 scikit-image
 scikit-learn
 joblib
+gunicorn
 opencv-python-headless
